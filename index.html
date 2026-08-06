@@ -3,103 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA AI - Dashboard</title>
+    <title>NOVA AI</title>
     
-    <!-- Modular CSS links -->
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Modular CSS -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar" id="sidebar">
-            <div class="brand">
-                <h2>NOVA AI</h2>
+    <!-- Splash / Loading Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="avatar-ring">
+                <span class="avatar-text">NV</span>
             </div>
-            <nav class="nav-menu">
-                <button class="nav-btn active" data-target="command-center">Command Center</button>
-                <button class="nav-btn" data-target="task-center">Task Center</button>
-                <button class="nav-btn" data-target="ai-reader">AI Reader</button>
-                <button class="nav-btn" data-target="settings">Settings</button>
-            </nav>
+            <h1 class="splash-title">NOVA AI</h1>
+            <p class="splash-subtitle">Building Digital Excellence</p>
+            
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="loading-bar"></div>
+            </div>
+            <span class="loading-percent" id="loading-percent">0%</span>
+
+            <div class="feature-badges">
+                <div class="badge"><span>&lt;/&gt;</span> Modular</div>
+                <div class="badge"><span>⚡</span> High Perf</div>
+                <div class="badge"><span>🛡️</span> Secure</div>
+                <div class="badge"><span>🚀</span> AI Powered</div>
+            </div>
+            
+            <p class="splash-footer">"Code. Create. Innovate."</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+
+        <!-- Header Bar -->
+        <header class="top-header">
+            <button class="icon-btn" id="menu-toggle-btn" aria-label="Open Menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="header-title">
+                <span>NOVA AI</span>
+                <span class="status-dot"></span>
+            </div>
+
+            <button class="icon-btn" id="options-toggle-btn" aria-label="Options">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="5" r="1.5"></circle>
+                    <circle cx="12" cy="12" r="1.5"></circle>
+                    <circle cx="12" cy="19" r="1.5"></circle>
+                </svg>
+            </button>
+
+            <!-- Options Dropdown Menu -->
+            <div class="options-dropdown" id="options-dropdown">
+                <button class="dropdown-item" id="btn-pinned">
+                    <span>📌</span> Pinned Messages
+                </button>
+                <button class="dropdown-item" id="btn-share">
+                    <span>📤</span> Share Conversation
+                </button>
+                <button class="dropdown-item" id="btn-clear">
+                    <span>🗑️</span> Clear Chat
+                </button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item nav-trigger" data-target="settings">
+                    <span>⚙️</span> Settings
+                </button>
+            </div>
+        </header>
+
+        <!-- Slide-out Drawer Navigation -->
+        <div class="drawer-overlay" id="drawer-overlay"></div>
+        <aside class="drawer" id="drawer">
+            <div class="drawer-header">
+                <h3>Menu</h3>
+                <button class="icon-btn" id="drawer-close-btn">&times;</button>
+            </div>
+
+            <button class="new-chat-btn" id="new-chat-btn">
+                <span>+</span> New Chat
+            </button>
+
+            <div class="drawer-section">
+                <h4>NAVIGATION</h4>
+                <nav class="drawer-nav">
+                    <button class="drawer-nav-btn active" data-target="command-center">
+                        <span>💬</span> Command Center
+                    </button>
+                    <button class="drawer-nav-btn" data-target="task-center">
+                        <span>⚡</span> Task Center
+                    </button>
+                    <button class="drawer-nav-btn" data-target="ai-reader">
+                        <span>📊</span> AI Reader Metrics
+                    </button>
+                    <button class="drawer-nav-btn" data-target="settings">
+                        <span>⚙️</span> Settings
+                    </button>
+                </nav>
+            </div>
+
+            <div class="drawer-section">
+                <h4>CHAT HISTORY</h4>
+                <ul class="chat-history-list" id="chat-history-list">
+                    <li class="history-item active">Hi...</li>
+                </ul>
+            </div>
         </aside>
 
         <!-- Main Content Area -->
         <main class="content-area">
-            
-            <!-- Command Center Tab (Active by default) -->
+
+            <!-- 1. Command Center Tab (Chat UI) -->
             <section id="command-center" class="tab-content active">
-                <header>
-                    <h2>Command Center</h2>
-                    <p>Monitor active chats and incoming messages.</p>
-                </header>
-                <div class="chat-display">
-                    <!-- Chat messages will render here -->
-                    <div class="placeholder-msg">System initialized. Awaiting incoming messages...</div>
+                <div class="chat-messages" id="chat-messages">
+                    
+                    <!-- Assistant Greeting Message -->
+                    <div class="message-wrapper assistant">
+                        <div class="sender-name">NOVA AI</div>
+                        <div class="message-bubble">
+                            Hey there! 👋 I'm NOVA AI. What's on your mind today? Feel free to ask me anything!
+                        </div>
+                        <div class="message-actions">
+                            <button class="action-btn">📌 Pin</button>
+                            <button class="action-btn">📋 Copy</button>
+                        </div>
+                    </div>
+
+                    <!-- User Sample Message -->
+                    <div class="message-wrapper user">
+                        <div class="sender-name">You</div>
+                        <div class="message-bubble">
+                            Hi
+                        </div>
+                    </div>
+
+                    <!-- Assistant Response Message -->
+                    <div class="message-wrapper assistant">
+                        <div class="sender-name">NOVA AI</div>
+                        <div class="message-bubble">
+                            Hmm, I couldn't reach my brain on the server 🧠⚡ — give it a sec (Render free tier can take ~30s to wake up) and try again!
+                        </div>
+                        <div class="message-actions">
+                            <button class="action-btn">📌 Pin</button>
+                            <button class="action-btn">📋 Copy</button>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="typing-bar-container">
-                    <input type="text" id="typing-bar" placeholder="Type a message or command to NOVA...">
-                    <button id="send-btn">Send</button>
+
+                <!-- Floating Chat Input Bar -->
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="chat-input" placeholder="Ask NOVA AI..." autocomplete="off">
+                        <button class="send-btn" id="send-btn" aria-label="Send">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="12" y1="19" x2="12" y2="5"></line>
+                                <polyline points="5 12 12 5 19 12"></polyline>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </section>
 
-            <!-- Task Center Tab -->
+            <!-- 2. Task Center Tab -->
             <section id="task-center" class="tab-content">
-                <header>
+                <div class="section-container">
                     <h2>Task Center</h2>
-                    <p>Queue and automate actions for WhatsApp, TikTok, and other platforms.</p>
-                </header>
-                <div class="task-queue">
-                    <div class="task-item pending">
-                        <span class="platform">WhatsApp</span>
-                        <span class="action">Drafting reply to Client A</span>
-                        <span class="status">In Queue</span>
+                    <p class="section-desc">Automated tasks & active platform queues.</p>
+                    
+                    <div class="card-list">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="platform-badge whatsapp">WhatsApp</span>
+                                <span class="status-badge pending">Queued</span>
+                            </div>
+                            <div class="card-body">Auto-responding to incoming client query</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="platform-badge tiktok">TikTok</span>
+                                <span class="status-badge active">Processing</span>
+                            </div>
+                            <div class="card-body">Processing video comment summaries</div>
+                        </div>
                     </div>
-                    <!-- More tasks will populate here -->
                 </div>
             </section>
 
-            <!-- AI Reader Tab -->
+            <!-- 3. AI Reader Tab -->
             <section id="ai-reader" class="tab-content">
-                <header>
-                    <h2>AI Reader</h2>
-                    <p>System metrics and operational status.</p>
-                </header>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <h3>Remaining Tokens</h3>
-                        <p class="number">142,050</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>Active Tasks</h3>
-                        <p class="number">3</p>
+                <div class="section-container">
+                    <h2>AI Reader Metrics</h2>
+                    <p class="section-desc">Real-time system stats & token usage.</p>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-label">Remaining Tokens</span>
+                            <span class="metric-value">142,050</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Active Tasks</span>
+                            <span class="metric-value">2</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Server Status</span>
+                            <span class="metric-value status-online">Online</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Settings Tab -->
+            <!-- 4. Settings Tab -->
             <section id="settings" class="tab-content">
-                <header>
+                <div class="section-container">
                     <h2>Settings</h2>
-                    <p>Platform configuration and API integrations.</p>
-                </header>
-                <div class="settings-form">
-                    <div class="form-group">
-                        <label>Platform Integrations</label>
-                        <button class="integration-btn">Connect WhatsApp</button>
-                        <button class="integration-btn">Connect Discord</button>
+                    <p class="section-desc">Configure your system preferences & integrations.</p>
+                    
+                    <div class="settings-group">
+                        <h3>API & Integrations</h3>
+                        <div class="setting-item">
+                            <label for="gemini-key">Gemini API Key</label>
+                            <input type="password" id="gemini-key" placeholder="Enter Gemini API key..." class="settings-input">
+                        </div>
+                        <div class="setting-item">
+                            <label for="render-url">Backend Server URL</label>
+                            <input type="text" id="render-url" placeholder="https://nova-backend.onrender.com" class="settings-input">
+                        </div>
                     </div>
-                    <!-- API keys will go here later -->
+
+                    <div class="settings-group">
+                        <h3>Platform Webhooks</h3>
+                        <div class="toggle-row">
+                            <span>WhatsApp Integration</span>
+                            <input type="checkbox" id="whatsapp-toggle" checked>
+                        </div>
+                        <div class="toggle-row">
+                            <span>TikTok Integration</span>
+                            <input type="checkbox" id="tiktok-toggle">
+                        </div>
+                    </div>
+
+                    <button class="save-settings-btn" id="save-settings-btn">Save Configurations</button>
                 </div>
             </section>
 
         </main>
     </div>
 
-    <!-- Modular JS link -->
+    <!-- Modular JS Scripts -->
     <script src="js/app.js"></script>
 </body>
-  </html>
-
+</html>
+                            
