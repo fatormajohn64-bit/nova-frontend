@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA AI - Dashboard</title>
+    
+    <!-- Modular CSS links -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <h2>NOVA AI</h2>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-target="command-center">Command Center</button>
+                <button class="nav-btn" data-target="task-center">Task Center</button>
+                <button class="nav-btn" data-target="ai-reader">AI Reader</button>
+                <button class="nav-btn" data-target="settings">Settings</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            
+            <!-- Command Center Tab (Active by default) -->
+            <section id="command-center" class="tab-content active">
+                <header>
+                    <h2>Command Center</h2>
+                    <p>Monitor active chats and incoming messages.</p>
+                </header>
+                <div class="chat-display">
+                    <!-- Chat messages will render here -->
+                    <div class="placeholder-msg">System initialized. Awaiting incoming messages...</div>
+                </div>
+                <div class="typing-bar-container">
+                    <input type="text" id="typing-bar" placeholder="Type a message or command to NOVA...">
+                    <button id="send-btn">Send</button>
+                </div>
+            </section>
+
+            <!-- Task Center Tab -->
+            <section id="task-center" class="tab-content">
+                <header>
+                    <h2>Task Center</h2>
+                    <p>Queue and automate actions for WhatsApp, TikTok, and other platforms.</p>
+                </header>
+                <div class="task-queue">
+                    <div class="task-item pending">
+                        <span class="platform">WhatsApp</span>
+                        <span class="action">Drafting reply to Client A</span>
+                        <span class="status">In Queue</span>
+                    </div>
+                    <!-- More tasks will populate here -->
+                </div>
+            </section>
+
+            <!-- AI Reader Tab -->
+            <section id="ai-reader" class="tab-content">
+                <header>
+                    <h2>AI Reader</h2>
+                    <p>System metrics and operational status.</p>
+                </header>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Remaining Tokens</h3>
+                        <p class="number">142,050</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Active Tasks</h3>
+                        <p class="number">3</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Tab -->
+            <section id="settings" class="tab-content">
+                <header>
+                    <h2>Settings</h2>
+                    <p>Platform configuration and API integrations.</p>
+                </header>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label>Platform Integrations</label>
+                        <button class="integration-btn">Connect WhatsApp</button>
+                        <button class="integration-btn">Connect Discord</button>
+                    </div>
+                    <!-- API keys will go here later -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Modular JS link -->
+    <script src="js/app.js"></script>
+</body>
+  </html>
 
